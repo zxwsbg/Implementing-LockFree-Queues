@@ -22,7 +22,6 @@ bool LockFreeQueue::enqueue(int val)
         }
     }
     __sync_bool_compare_and_swap(&tail, cur_node, add_node);
-
     return 1;
 }
 

@@ -1,18 +1,7 @@
 #ifndef LOCKFREEQUEUE_H
 #define LOCKFREEQUEUE_H
 
-#include <memory.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-class QueueNode {
-  public:
-    int        val;
-    QueueNode* next;
-    QueueNode(int val) : val(val) {
-        next = NULL;
-    }
-};
+#include "QueueNode.h"
 
 class LockFreeQueue {
   public:
@@ -22,7 +11,7 @@ class LockFreeQueue {
     ~LockFreeQueue();
 
   private:
-    int        queue_size;
+    int        queue_size; // 暂时未使用，论文里并没有提及最大资源数
     QueueNode* tail;
     QueueNode* head;
 };

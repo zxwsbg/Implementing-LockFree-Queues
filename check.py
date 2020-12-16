@@ -1,6 +1,6 @@
 import os
 
-f = open("1.out")
+f = open("./build/1.out")
 line = f.readline()
 
 dict_produce = {}
@@ -26,7 +26,7 @@ f.close()
 
 print("LockFree correctness test pass!")
 
-f = open("2.out")
+f = open("./build/2.out")
 line = f.readline()
 
 dict_produce = {}

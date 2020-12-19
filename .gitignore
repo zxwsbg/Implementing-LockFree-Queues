@@ -1,2 +1,5 @@
 # ignore output result
 build/
+.vscode/
+.idea/
+cmake-build-debug/

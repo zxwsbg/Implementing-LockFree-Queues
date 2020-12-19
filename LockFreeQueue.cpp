@@ -2,44 +2,53 @@
 
 LockFreeQueue::LockFreeQueue()
 {
-    head = new QueueNode(-1);
-    tail = head;
+    QueueNode* node = new QueueNode();
+    Head.ptr = Tail.ptr = node;
 }
 
 LockFreeQueue::~LockFreeQueue() {}
 
 bool LockFreeQueue::enqueue(int val)
 {
-    QueueNode* cur_node;
-    QueueNode* add_node = new QueueNode(val);
-    while (1) {
-        cur_node = tail;
-        if (__sync_bool_compare_and_swap(&(cur_node->next), NULL, add_node)) {
-            break;
+    QueueNode* cur_node = new QueueNode(val);
+    Pointer    tail, next;
+
+    do {
+        tail = Tail;
+        next = tail.ptr->next;
+        if (tail == Tail) {
+            if (next.ptr == NULL) {
+                if (tail.ptr->next.double_cas(Pointer(cur_node, next.count + 1), next))
+                    break;
+            }
+            else {
+                Tail.double_cas(Pointer(next.ptr, tail.count + 1), tail);
+            }
         }
-        else {
-            __sync_bool_compare_and_swap(&tail, cur_node, cur_node->next);
-        }
-    }
-    __sync_bool_compare_and_swap(&tail, cur_node, add_node);
-    return 1;
+    } while (true);
+    Tail.double_cas(Pointer(cur_node, tail.count + 1), tail);
 }
 
 int LockFreeQueue::dequeue()
 {
-    QueueNode* cur_node;
-    int        val;
-    while (1) {
-        cur_node = head;
-        if (cur_node->next == NULL) {
-            return -1;
-        }
-
-        if (__sync_bool_compare_and_swap(&head, cur_node, cur_node->next)) {
-            break;
-        }
-    }
-    val = cur_node->next->val;
-    delete cur_node;
-    return val;
+    int ret = -1;
+    Pointer head, tail, next;
+    do {
+        head = Head;
+        tail = Tail;
+        next = head.ptr->next;
+        if (head == Head)
+            if (head.ptr == tail.ptr) {
+                if (next.ptr == NULL)
+                    return ret;
+                Tail.double_cas(Pointer(next.ptr, tail.count + 1), tail);
+            }
+            else {
+                ret = next.ptr->val;
+                if (Head.double_cas(Pointer(next.ptr, head.count + 1), head))
+                    break;
+            }
+    } while (true);
+    delete (head.ptr);
+    return ret;
 }

@@ -6,5 +6,5 @@ support Multiple Producer and Multiple Consumer with lock-free queue
 # How to Run
 ./build.sh
 
-# Existing Problem
-ABA problem: it will happen in current version 
+# How to solve ABA problem 
+checkout to `fix_aba_problem` branch

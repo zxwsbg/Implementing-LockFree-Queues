@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11  -pthread -g   CMakeFiles/lockfree-queue.dir/LockFreeQueue.cpp.o CMakeFiles/lockfree-queue.dir/lockfreequeue_test.cpp.o  -o lockfree-queue 

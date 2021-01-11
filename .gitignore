@@ -1,2 +1,4 @@
 # ignore output result
 build/
+.vscode/
+.idea/

@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sbw/code/wsdl/lock-free-queue/CAS.h
+iostream
+-
+
+/home/sbw/code/wsdl/lock-free-queue/LockFreeQueue.cpp
+LockFreeQueue.h
+/home/sbw/code/wsdl/lock-free-queue/LockFreeQueue.h
+
+/home/sbw/code/wsdl/lock-free-queue/LockFreeQueue.h
+QueueNode.h
+/home/sbw/code/wsdl/lock-free-queue/QueueNode.h
+CAS.h
+/home/sbw/code/wsdl/lock-free-queue/CAS.h
+
+/home/sbw/code/wsdl/lock-free-queue/QueueNode.h
+memory.h
+-
+CAS.h
+/home/sbw/code/wsdl/lock-free-queue/CAS.h
+
+/home/sbw/code/wsdl/lock-free-queue/lockfreequeue_test.cpp
+iostream
+-
+thread
+-
+vector
+-
+LockFreeQueue.h
+/home/sbw/code/wsdl/lock-free-queue/LockFreeQueue.h
+
